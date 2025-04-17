@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Location</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <style>
+        .center-align {
+            text-align: center; /* Center text and inline elements */
+            margin: 20px 0; /* Add some margin for spacing */
+        }
+    </style></head>
+<body>
+    <header>
+        <h1>Add Location</h1>
+    </header>
+    <div class="center-align">
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button> <!-- Home Button -->
+    </div>
+    <main>
+        <form action="/location/add" method="POST">
+            <div>
+                <label for="location_id">Location ID:</label>
+                <input type="text" id="location_id" name="location_id" required>
+            </div>
+            <button type="submit">Add Location</button>
+        </form>
+
+        <nav>
+            <a href="/locations">Back to Locations</a>
+        </nav>
+    </main>
+</body>
+</html>
