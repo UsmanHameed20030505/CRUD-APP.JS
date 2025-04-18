@@ -69,3 +69,28 @@
                 const productId = document.getElementById('product_id').value;
                 const fromLocationInput = document.getElementById('from_location');
                 const quantityInput = document.getElementById('quantity'); // Reference to quantity input
+ // Reset the input value
+                fromLocationInput.value = '';
+                quantityInput.value = ''; // Reset quantity input as well
+
+                // Fetch current location for the selected product
+                if (productId) {
+                    fetch(`/api/current_location?product_id=${productId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.current_location) {
+                                // Set the current location as the input value
+                                fromLocationInput.value = data.current_location; // Show current location
+                                
+                                // Fetch current quantity based on product ID and from location
+                                fetch(`/get_current_quantity?product_id=${productId}&from_location=${data.current_location}`)
+                                    .then(response => response.json())
+                                    .then(quantityData => {
+                                        quantityInput.value = quantityData.quantity;  // Update the quantity field
+                                    })
+                                    .catch(error => console.error('Error fetching current quantity:', error));
