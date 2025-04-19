@@ -94,3 +94,50 @@
                                         quantityInput.value = quantityData.quantity;  // Update the quantity field
                                     })
                                     .catch(error => console.error('Error fetching current quantity:', error));
+ updateToLocationOptions(); // Update the to_location options now
+                            } else {
+                                console.log('No current location found for this product.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching current location:', error));
+                }
+            }
+
+            function updateToLocationOptions() {
+                const fromLocationValue = document.getElementById('from_location').value;
+                const toLocationSelect = document.getElementById('to_location');
+
+                // Clear existing options and reset toLocation
+                toLocationSelect.innerHTML = '<option value="">Select a location</option>'; // Reset with placeholder option
+
+                // Fetch all locations for the selected product to filter
+                const productId = document.getElementById('product_id').value;
+                if (productId) {
+                    fetch(`/api/locations?product_id=${productId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            data.locations.forEach(location => {
+                                // Only add locations that are not the same as fromLocation
+                                if (location.location_id !== fromLocationValue) {
+                                    const option = document.createElement('option');
+                                    option.value = location.location_id;
+                                    option.textContent = location.location_id; // Include only location ID
+                                    toLocationSelect.appendChild(option);
+                                }
+                            });
+                        })
+                        .catch(error => console.error('Error fetching locations:', error));
+                }
+            }
+
+            // Attach event listeners
+            document.getElementById('product_id').addEventListener('change', updateFromLocations);
+        });
+    </script>
+</body>
+</html>
