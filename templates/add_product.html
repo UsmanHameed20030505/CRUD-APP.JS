@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <style>
+        .center-align {
+            text-align: center; /* Center text and inline elements */
+            margin: 20px 0; /* Add some margin for spacing */
+        }
+        .flash-message {
+            color: red; /* Change this color as needed for error messages */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add Product</h1>
+    </header>
+
+    <div class="center-align">
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button> <!-- Home Button -->
+    </div>
