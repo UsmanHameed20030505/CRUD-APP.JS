@@ -46,6 +46,36 @@ header::before {
     content: '';
     position: absolute;
     top: -50%;
+    header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header h4 {
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Navigation Styling */
+nav {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
     left: -50%;
     width: 200%;
     height: 200%;
