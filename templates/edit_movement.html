@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='js/movement.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <title>Edit Movement</title>
+    <style>
+        .center-align {
+            text-align: center; /* Center text and inline elements */
+            margin: 20px 0; /* Add some margin for spacing */
+        }
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .readonly {
+            background-color: #f0f0f0; /* Light gray background */
+            border: 1px solid #ccc; /* Gray border */
+            cursor: not-allowed; /* Not allowed cursor */
+        }
