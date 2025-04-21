@@ -16,3 +16,23 @@
     <header>
         <h1>Edit Location</h1>
     </header>
+ <!-- Home Button -->
+    <div class="center-align">
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button> <!-- Home Button -->
+    </div>
+
+    <div class="container">
+        <form method="POST" action="{{ url_for('edit_location', location_id=location.location_id) }}" class="form">
+            <div class="form-group">
+                <label for="location_id">Location ID:</label>
+                <input type="text" id="location_id" name="location_id" value="{{ location.location_id }}" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Update Location</button>
+                <button type="button" class="btn cancel-btn" onclick="window.location.href='/locations';">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
