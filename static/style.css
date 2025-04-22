@@ -82,3 +82,27 @@ nav ul {
     background: rgba(255, 255, 255, 0.05);
     transform: rotate(-45deg);
 }
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+}
+
+nav a:hover {
+    background-color: var(--accent-color);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
