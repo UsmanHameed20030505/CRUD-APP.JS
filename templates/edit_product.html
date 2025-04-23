@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <style>
+        .center-align {
+            text-align: center; /* Center text and inline elements */
+            margin: 20px 0; /* Add some margin for spacing */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edit Product</h1>
+    </header>
+    
+    <!-- Home Button -->
+    <div class="center-align">
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button>
+    </div>
+    
+    <div class="container">
+        <form method="POST" class="form">
+            <!-- Editable Product ID -->
+            <div class="form-group">
+                <label for="product_id">Product ID:</label>
+                <input type="text" name="product_id" value="{{ product.product_id }}" required>
+            </div>
