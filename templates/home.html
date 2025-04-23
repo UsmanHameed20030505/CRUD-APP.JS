@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Inventory Management Home</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Inventory Management Application</h1>
+        <h4>Manage your products, locations, and movements efficiently.</h4>
+    </header>
+    <div class="home-content">
+        <p>Welcome to the Inventory Management System! Our application is designed to streamline the management of product inventory across multiple warehouse locations. With a user-friendly interface, you can easily add, update, and track products and their quantities in real-time. The system allows you to manage various warehouse locations efficiently, ensuring that you always have an accurate overview of your inventory levels. Additionally, our application provides essential functionalities to track product movements and generate insightful reports on stock balances. Whether you're managing a small store or a large warehouse, our solution is tailored to meet your inventory management needs with simplicity and efficiency.</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/locations">Locations</a></li>
+            <li><a href="/movements">Movements</a></li>
+            <li><a href="/product/balance">Check Product Balance</a></li> <!-- Updated link -->
+        </ul>
+    </nav>
+</body>
+</html>
