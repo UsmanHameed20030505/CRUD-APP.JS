@@ -26,3 +26,40 @@
                 </tr>
             </thead>
             <tbody>
+ {% for warehouse, data in balance_data.items() %}
+                    {% for product_id, details in data.balances.items() %}
+                        <tr>
+                            <td>{{ product_id }}</td>  <!-- Display Product ID -->
+                            <td>{{ warehouse }}</td>    <!-- Display Warehouse -->
+                            <td>{{ details.quantity }}</td>  <!-- Display Quantity -->
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>            
+        </table>
+    {% endif %}
+    
+    <!-- Navigation Back to Home -->
+    <nav>
+        <a href="/home" class="button">Back to Home</a>
+    </nav>
+
+    <!-- Script to sort rows by Last Updated timestamp if necessary -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const table = document.querySelector("table tbody");
+            const rows = Array.from(table.querySelectorAll("tr"));
+            
+            // Sort rows based on the Last Updated timestamp in descending order
+            rows.sort((a, b) => {
+                const dateA = new Date(a.cells[3].textContent); // Timestamp cell
+                const dateB = new Date(b.cells[3].textContent);
+                return dateB - dateA; // Latest timestamp first
+            });
+            
+            // Append sorted rows to the table
+            rows.forEach(row => table.appendChild(row));
+        });
+    </script>
+</body>
+</html>
