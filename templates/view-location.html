@@ -1,0 +1,20 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <title>View Locations</title>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Locations</h1>
+        <h4>Manage Your Warehouse Locations</h4>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="/location/add">Add New Location</a>
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button> <!-- Home Button -->
+    </nav>
