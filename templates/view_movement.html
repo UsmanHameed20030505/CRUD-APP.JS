@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='view.css') }}">
+    <title>Product Movements</title>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Product Movements</h1>
+        <h4>Track Movement of Products Between Locations</h4>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="/movement/add">Add New Movement</a>
+        <button onclick="window.location.href='/'" class="btn home-btn">Home</button> <!-- Home Button -->
+    </nav>
+
+    <!-- Table Section -->
+    <table>
+        <thead>
+            <tr>
+                <th>Movement ID</th>
+                <th>Product ID</th>
+                <th>From Location</th>
+                <th>To Location</th>
+                <th>Timestamp</th>
+                <th>Edit</th>
+                <th>Delete</th> <!-- Delete Column -->
+            </tr>
