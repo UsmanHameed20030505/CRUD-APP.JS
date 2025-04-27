@@ -129,3 +129,29 @@ button:hover, .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+.edit-btn {
+    background-color: var(--success-color);
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+}
+
+/* Navigation Styling */
+nav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+nav a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    margin: 0 10px;
+}
