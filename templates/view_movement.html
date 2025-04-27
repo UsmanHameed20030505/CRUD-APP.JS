@@ -31,3 +31,28 @@
                 <th>Edit</th>
                 <th>Delete</th> <!-- Delete Column -->
             </tr>
+ </thead>
+        <tbody>
+            {% for movement in movements %}
+                <tr>
+                    <td>{{ movement.movement_id }}</td>
+                    <td>{{ movement.product_id }}</td>
+                    <td>{{ movement.from_location }}</td>
+                    <td>{{ movement.to_location }}</td>
+                    <td>{{ movement.timestamp }}</td>
+                    <td>
+                        <a href="/movement/edit/{{ movement.movement_id }}" class="btn edit-btn">Edit</a>
+                    </td>
+                    <td>
+                        <a href="/movement/delete/{{ movement.movement_id }}" class="btn delete-btn">Delete</a>
+                    </td>                
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No movements found.</td> <!-- Adjusted colspan -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
