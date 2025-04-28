@@ -57,3 +57,19 @@ def index():
 from sqlalchemy import text
 
 @app.route('/product/balance', methods=['GET'])
+def product_balance():
+    # Query Balance table and order by timestamp for sorting
+    balance_data = db.session.execute(text("""
+        SELECT B.product_id, B.warehouse, B.quantity, P.timestamp
+        FROM Balance B
+        JOIN Product P ON B.product_id = P.product_id
+        ORDER BY P.timestamp DESC
+    """)).fetchall()
+
+    # Organize data for HTML display (sorting handled in SQL query)
+    balance_dict = {}
+    for row in balance_data:
+        warehouse = row.warehouse
+        product_id = row.product_id
+        quantity = row.quantity
+        timestamp = row.timestamp
