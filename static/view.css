@@ -208,3 +208,22 @@ td a:hover {
     text-align: center;
     margin: 20px 0;
 }
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    form {
+        padding: 20px;
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition: all 0.3s ease;
+}
