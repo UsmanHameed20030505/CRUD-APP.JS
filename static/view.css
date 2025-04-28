@@ -183,3 +183,28 @@ th, td {
     text-align: left;
     border-bottom: 1px solid var(--background-color);
 }
+tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+td a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+td a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Center Align Utility */
+.center-align {
+    text-align: center;
+    margin: 20px 0;
+}
