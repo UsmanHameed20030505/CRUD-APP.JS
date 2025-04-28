@@ -73,3 +73,25 @@ def product_balance():
         product_id = row.product_id
         quantity = row.quantity
         timestamp = row.timestamp
+# Structure to group balances by warehouse and product
+        if warehouse not in balance_dict:
+            balance_dict[warehouse] = {'balances': {}}
+        balance_dict[warehouse]['balances'][product_id] = {
+            'quantity': quantity,
+            'timestamp': timestamp
+        }
+
+    # Pass the organized data to the HTML template
+    return render_template('product_balance.html', balance_data=balance_dict)
+
+@app.route('/products', methods=['GET'])
+def view_products():
+    products = Product.query.all()
+    return render_template('view_product.html', products=products)
+
+from flask import flash, redirect, render_template, request, url_for
+from datetime import datetime
+
+@app.route('/movement/edit/<movement_id>', methods=['GET', 'POST'])
+def edit_movement(movement_id):
+    movement = ProductMovement.query.get(movement_id)
