@@ -28,3 +28,32 @@ class Product(db.Model):
     location_id = db.Column(db.String, db.ForeignKey('location.location_id', ondelete='SET NULL'))
     quantity = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)  # Set default and update timestamps
+# Define ProductMovement model
+class ProductMovement(db.Model):
+    __tablename__ = 'product_movement'
+    
+    movement_id = db.Column(db.String, primary_key=True)
+    product_id = db.Column(db.String, db.ForeignKey('product.product_id'), nullable=False)
+    from_location = db.Column(db.String, db.ForeignKey('location.location_id'), nullable=False)
+    to_location = db.Column(db.String, db.ForeignKey('location.location_id'), nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    quantity = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, movement_id, product_id, from_location, to_location, quantity=0):
+        self.movement_id = movement_id
+        self.product_id = product_id
+        self.from_location = from_location
+        self.to_location = to_location
+        self.quantity = quantity
+
+@app.route('/home')
+def home_view():
+    return render_template('home.html')
+
+@app.route('/')
+def index():
+    return redirect('/home')
+
+from sqlalchemy import text
+
+@app.route('/product/balance', methods=['GET'])
