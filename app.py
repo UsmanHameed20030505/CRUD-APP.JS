@@ -95,3 +95,13 @@ from datetime import datetime
 @app.route('/movement/edit/<movement_id>', methods=['GET', 'POST'])
 def edit_movement(movement_id):
     movement = ProductMovement.query.get(movement_id)
+if movement is None:
+        flash('Movement not found!', 'error')
+        return redirect(url_for('view_movements'))
+
+    if request.method == 'POST':
+        # Get data from the form
+        product_id = request.form.get('product_id')
+        from_location = request.form.get('from_location_hidden')  # Use the correct key for hidden field
+        to_location = request.form.get('to_location')
+        quantity = request.form.get('quantity')
