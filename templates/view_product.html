@@ -30,3 +30,22 @@
                 <th>Delete</th> <!-- Delete Column -->
             </tr>
         </thead>
+<tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product_id }}</td>
+                <td>{{ product.location_id }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>  <!-- Format timestamp -->
+                <td>
+                    <a href="/product/edit/{{ product.product_id }}" class="btn edit-btn">Edit</a>
+                </td>
+                <td>
+                    <a href="/product/delete/{{ product.product_id }}" class="btn delete-btn">Delete</a>
+                </td>                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
