@@ -105,3 +105,18 @@ if movement is None:
         from_location = request.form.get('from_location_hidden')  # Use the correct key for hidden field
         to_location = request.form.get('to_location')
         quantity = request.form.get('quantity')
+ # Update the movement details in the database
+        try:
+            # Update only the movement details without affecting product quantity or location
+            movement.product_id = product_id
+            movement.from_location = from_location
+            movement.to_location = to_location
+            movement.timestamp = datetime.now()  # Update the timestamp to the current time
+            
+            db.session.commit()  # Commit the changes
+            flash('Movement updated successfully!', 'success')
+            return redirect(url_for('view_movements'))
+        except Exception as e:
+            db.session.rollback()  # Rollback on error
+            flash('Error updating movement: {}'.format(str(e)), 'error')
+            return redirect(url_for('view_movements'))
