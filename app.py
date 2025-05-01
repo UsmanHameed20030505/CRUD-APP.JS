@@ -173,3 +173,27 @@ def update_product(product_id):
         flash('Product not found', 'error')
         return redirect('/products')
     
+if request.method == 'POST':
+        new_product_id = request.form.get('product_id')
+        location_id = request.form.get('location_id')
+        quantity = request.form.get('quantity')
+
+        if 'delete' in request.form:
+            db.session.delete(product)
+            db.session.commit()
+            flash('Product deleted successfully!', 'success')
+            return redirect('/products')
+
+        existing_product = Product.query.filter_by(product_id=new_product_id).first()
+        if existing_product and existing_product.product_id != product.product_id:
+            flash('Product ID already exists. Please choose a different one.', 'error')
+            return redirect(f'/product/edit/{product.product_id}')
+
+        product.product_id = new_product_id
+        product.location_id = location_id
+        product.quantity = quantity
+        db.session.commit()
+        flash('Product updated successfully!', 'success')
+        return redirect('/products')
+
+    return render_template('edit_product.html', product=product, locations=locations)
