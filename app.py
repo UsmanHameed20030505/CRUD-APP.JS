@@ -197,3 +197,19 @@ if request.method == 'POST':
         return redirect('/products')
 
     return render_template('edit_product.html', product=product, locations=locations)
+@app.route('/movement/add', methods=['GET', 'POST'])
+def add_movement_view():
+    if request.method == 'POST':
+        movement_id = request.form['movement_id']
+        product_id = request.form['product_id']
+        from_location = request.form['from_location']
+        to_location = request.form['to_location']
+        quantity = request.form.get('quantity', 0)
+
+        # Ensure quantity is an integer
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            quantity = 0  # Default to 0 if conversion fails
+
+        print(f"Adding movement: ID={movement_id}, Product ID={product_id}, From={from_location}, To={to_location}, Quantity={quantity}")
