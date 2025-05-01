@@ -120,3 +120,56 @@ if movement is None:
             db.session.rollback()  # Rollback on error
             flash('Error updating movement: {}'.format(str(e)), 'error')
             return redirect(url_for('view_movements'))
+# If GET request, fetch the movement details for editing
+    locations = Location.query.all()
+    products = Product.query.all()
+
+    return render_template('edit_movement.html', movement=movement, locations=locations, products=products)
+
+@app.route('/product/move', methods=['POST'])
+def move_product_view():
+    data = request.form
+    product_id = data['product_id']
+    to_location = data['to_location']
+    quantity = int(data['quantity'])
+
+    existing_product = Product.query.filter_by(product_id=product_id).first()
+
+    if existing_product:
+        if existing_product.quantity < quantity:
+            flash('Error: Not enough stock to move!', 'error')
+            return redirect('/products')
+        
+        existing_product.quantity -= quantity
+
+        existing_product_to = Product.query.filter_by(
+            product_id=product_id, 
+            location_id=to_location
+        ).first()
+
+        if existing_product_to:
+            existing_product_to.quantity += quantity
+        else:
+            new_product = Product(
+                product_id=product_id,
+                location_id=to_location,
+                quantity=quantity
+            )
+            db.session.add(new_product)
+
+        db.session.commit()
+        flash('Product moved successfully!', 'success')
+        return redirect('/products')
+    else:
+        flash('Error: Product not found!', 'error')
+        return redirect('/products')
+
+@app.route('/product/edit/<product_id>', methods=['GET', 'POST'])
+def update_product(product_id):
+    product = Product.query.get(product_id)
+    locations = Location.query.all()
+    
+    if product is None:
+        flash('Product not found', 'error')
+        return redirect('/products')
+    
