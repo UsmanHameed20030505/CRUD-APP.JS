@@ -278,3 +278,31 @@ def get_locations():
     ]
 
     return jsonify({"locations": location_list})
+@app.route('/location/add', methods=['GET', 'POST'])
+def add_location_view():
+    if request.method == 'POST':
+        data = request.form
+        existing_location = Location.query.get(data['location_id'])
+        if existing_location:
+            flash('Location already exists!', 'error')
+            return redirect('/location/add')
+        new_location = Location(location_id=data['location_id'])
+        db.session.add(new_location)
+        db.session.commit()
+        flash('Location added successfully!', 'success')
+        return redirect('/locations')
+    return render_template('add_location.html')
+
+@app.route('/product/delete/<product_id>', methods=['GET'])
+def delete_product(product_id):
+    product = Product.query.get(product_id)
+
+    if product is None:
+        flash('Product not found!', 'error')
+        return redirect(url_for('view_products'))
+
+    db.session.delete(product)
+    db.session.commit()
+
+    flash('Product deleted successfully!', 'success')
+    return redirect(url_for('view_products'))
