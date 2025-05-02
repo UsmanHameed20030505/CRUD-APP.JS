@@ -235,3 +235,28 @@ def add_movement_view():
     locations = Location.query.all()  # Fetch all locations
 
     return render_template('add_movement.html', products=products, locations=locations)
+@app.route('/get_current_quantity', methods=['GET'])
+def get_current_quantity():
+    product_id = request.args.get('product_id')
+    from_location = request.args.get('from_location')
+    
+    current_quantity = db.session.execute(
+        select(Product.quantity)
+        .where(Product.product_id == product_id)
+        .where(Product.location_id == from_location)
+    ).scalar()
+
+    return jsonify({'quantity': current_quantity})
+
+
+@app.route('/api/current_location', methods=['GET'])
+def get_current_location():
+    product_id = request.args.get('product_id')
+    if not product_id:
+        return jsonify({"error": "Product ID is required."}), 400
+
+    product = Product.query.filter_by(product_id=product_id).first()
+    if product and product.location_id:
+        return jsonify({"current_location": product.location_id})
+    
+    return jsonify({"current_location": None})
