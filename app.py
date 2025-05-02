@@ -260,3 +260,21 @@ def get_current_location():
         return jsonify({"current_location": product.location_id})
     
     return jsonify({"current_location": None})
+@app.route('/api/locations', methods=['GET'])
+def get_locations():
+    product_id = request.args.get('product_id')
+    from_location = request.args.get('from_location')  # Get from_location if provided
+    if not product_id:
+        return jsonify({"error": "Product ID is required."}), 400
+
+    # Fetch all locations that are associated with the product
+    locations = Location.query.all()  # Or fetch filtered locations as needed
+
+    # Prepare the list of locations to return as JSON, excluding from_location
+    location_list = [
+        {"location_id": loc.location_id} 
+        for loc in locations 
+        if loc.location_id != from_location  # Exclude the from_location
+    ]
+
+    return jsonify({"locations": location_list})
