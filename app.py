@@ -213,3 +213,25 @@ def add_movement_view():
             quantity = 0  # Default to 0 if conversion fails
 
         print(f"Adding movement: ID={movement_id}, Product ID={product_id}, From={from_location}, To={to_location}, Quantity={quantity}")
+   new_movement = ProductMovement(
+            movement_id=movement_id,
+            product_id=product_id,
+            from_location=from_location,
+            to_location=to_location,
+            quantity=quantity
+        )
+
+        try:
+            db.session.add(new_movement)
+            db.session.commit()
+            print("Movement added successfully.")
+        except Exception as e:
+            db.session.rollback()  # Roll back the session in case of error
+            print("Error adding movement:", str(e))  # Log the exception
+
+        return redirect(url_for('view_movements'))  # Redirect to the movements view
+
+    products = Product.query.all()  # Fetch all products
+    locations = Location.query.all()  # Fetch all locations
+
+    return render_template('add_movement.html', products=products, locations=locations)
