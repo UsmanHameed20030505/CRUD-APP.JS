@@ -386,3 +386,21 @@ def edit_location(location_id):
             return redirect(url_for('view_locations'))
 
     return render_template('edit_location.html', location=location)
+@app.route('/locations', methods=['GET'])
+def view_locations():
+    locations = Location.query.all()
+    return render_template('view_location.html', locations=locations)
+
+@app.route('/movements')
+def view_movements():
+    # Fetch all product movements
+    movements = ProductMovement.query.all()
+    
+    # Render the page with only movements data
+    return render_template('view_movements.html', movements=movements)
+
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Create tables
+    app.run(debug=True)
