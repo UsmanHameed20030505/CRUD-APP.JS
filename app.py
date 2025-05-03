@@ -306,3 +306,20 @@ def delete_product(product_id):
 
     flash('Product deleted successfully!', 'success')
     return redirect(url_for('view_products'))
+db.session.delete(product)
+    db.session.commit()
+
+    flash('Product deleted successfully!', 'success')
+    return redirect(url_for('view_products'))
+
+@app.route('/product/add', methods=['GET', 'POST'])
+def add_product_view():
+    locations = Location.query.all()  # Fetch all locations from the database
+    if request.method == 'POST':
+        data = request.form
+        # Check if the product already exists
+        existing_product = Product.query.filter_by(product_id=data['product_id']).first()
+        if existing_product:
+            flash('Error: Product ID already exists. Please use a different ID.', 'error')
+            return render_template('add_product.html', locations=locations)
+        
