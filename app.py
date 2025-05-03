@@ -364,3 +364,25 @@ def delete_movement(movement_id):
     
     flash('Movement deleted successfully!', 'success')
     return redirect(url_for('view_movements'))
+@app.route('/location/edit/<location_id>', methods=['GET', 'POST'])
+def edit_location(location_id):
+    location = Location.query.get(location_id)
+
+    if location is None:
+        flash('Location not found!', 'error')
+        return redirect(url_for('view_locations'))
+
+    if request.method == 'POST':
+        new_location_id = request.form.get('location_id')
+        if new_location_id != location.location_id:
+            existing_location = Location.query.get(new_location_id)
+            if existing_location:
+                flash('Location ID already exists!', 'error')
+                return redirect(url_for('edit_location', location_id=location_id))
+
+            location.location_id = new_location_id
+            db.session.commit()
+            flash('Location updated successfully!', 'success')
+            return redirect(url_for('view_locations'))
+
+    return render_template('edit_location.html', location=location)
