@@ -323,3 +323,18 @@ def add_product_view():
             flash('Error: Product ID already exists. Please use a different ID.', 'error')
             return render_template('add_product.html', locations=locations)
         
+ new_product = Product(
+            product_id=data['product_id'],
+            location_id=data.get('location_id'),
+            quantity=data.get('quantity', 1),  # Default quantity if not provided
+            timestamp=datetime.now()
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        flash('Product added successfully!', 'success')
+        return redirect('/products')
+    return render_template('add_product.html', locations=locations)
+
+@app.route('/location/delete/<location_id>', methods=['GET'])
+def delete_location(location_id):
+    location = Location.query.get(location_id)  # Fetch the location to delete
