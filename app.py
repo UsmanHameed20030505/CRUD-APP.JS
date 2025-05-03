@@ -338,3 +338,29 @@ def add_product_view():
 @app.route('/location/delete/<location_id>', methods=['GET'])
 def delete_location(location_id):
     location = Location.query.get(location_id)  # Fetch the location to delete
+if location is None:
+        flash('Location not found!', 'error')
+        return redirect(url_for('view_locations'))  # Redirect if location does not exist
+
+    db.session.delete(location)  # Delete the location
+    db.session.commit()  # Commit the changes to the database
+
+    flash('Location deleted successfully!', 'success')
+    return redirect(url_for('view_locations'))  # Redirect to the view locations page
+
+
+
+
+@app.route('/movement/delete/<movement_id>', methods=['GET'])
+def delete_movement(movement_id):
+    movement = ProductMovement.query.get(movement_id)
+    
+    if movement is None:
+        flash('Movement not found!', 'error')
+        return redirect(url_for('view_movements'))
+    
+    db.session.delete(movement)
+    db.session.commit()
+    
+    flash('Movement deleted successfully!', 'success')
+    return redirect(url_for('view_movements'))
